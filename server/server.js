@@ -1,8 +1,7 @@
+import express from 'express';
+import cors from 'cors';
+import { GoogleGenAI } from '@google/genai';
 import GEMINI_API_KEY from "./geminiKey.js";
-
-const express = require ('express');
-const cors = require ('cors');
-const gemini = require ('./routes/gemini');
 
 const app = express ();
 const PORT = process.env.PORT || 3001;
@@ -77,8 +76,8 @@ app.get("/recipeStream", (req, res) => {
     
 async function fetchGemniniCompletionsStream(messages, callback) {
     const GEM_API_KEY = GEMINI_API_KEY;
-    const gemini = new Gemini({apiKey: GEM_API_KEY});
-    const aiModel = 'gemini-1.5-pro';
+    const gemini = new GoogleGenAI({apiKey: GEM_API_KEY});
+    const aiModel = 'gemini-2.0-flash';
         
     try {
         const completion = gemini.chat.completions.create({
