@@ -154,7 +154,7 @@ function App() {
       }
 
       eventSourceRef.current.onerror = () => {
-        eventSOurceRef.current.close();
+        eventSourceRef.current.close();
       };
     }
 
