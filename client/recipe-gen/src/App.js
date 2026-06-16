@@ -110,15 +110,51 @@ const RecipeCard = ({onSubmit}) => {
           <option value="Experienced">Experienced</option>
         </select>
       </div>
+      <div className="px-6 py-4">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="button"
+          onClick={handleSubmit}
+        >
+          Generate Recipe
+        </button>
+      </div>
     </div>
     </div>
   );
 }
 
 function App() {
+  const [recipeData, setRecipeData] = useState(null);
+  const [recipeText, setRecipeText] = useState("");
+
+  let eventSourceRef = useRef(null);
+
+  useEffect(() => {
+    if (recipeData) {
+
+    }
+    }, [recipeData]);
+
+    const intializeEventStream = () => {
+        const recipeInputs = {... recipeData};
+
+        const queryParams = new URLSearchParams(recipeInputs).toString();
+    }
+
+  async function onSubmit(data) {
+    setRecipeText('')
+    setRecipeData(data);
+  }
+
   return (
     <div className="App">
-      
+      <div className="flex flex-row h-full my-4 gap-2 justify-center">
+        <RecipeCard/>
+        <div className="w-[400px] h-[565px] text-xs text-gray-600 p-4 border rounded-lg shawdow-xl whitespace-pre-wrap overflow-y-auto">
+          {recipeText}
+        </div>
+      </div>
     </div>
   );
 }
