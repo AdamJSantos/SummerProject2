@@ -159,8 +159,10 @@ function App() {
     }
 
     const closeEventStream = () => {
+      if (eventSourceRef.current) {
       eventSourceRef.current.close();
       eventSourceRef.current = null;
+      }
     }
 
   async function onSubmit(data) {
@@ -171,7 +173,7 @@ function App() {
   return (
     <div className="App">
       <div className="flex flex-row h-full my-4 gap-2 justify-center">
-        <RecipeCard/>
+        <RecipeCard onSubmit={onSubmit} />
         <div className="w-[400px] h-[565px] text-xs text-gray-600 p-4 border rounded-lg shawdow-xl whitespace-pre-wrap overflow-y-auto">
           {recipeText}
         </div>
