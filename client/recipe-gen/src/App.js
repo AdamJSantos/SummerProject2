@@ -132,14 +132,35 @@ function App() {
 
   useEffect(() => {
     if (recipeData) {
-
+      closeEventStream();
+      intializeEventStream();
     }
     }, [recipeData]);
 
     const intializeEventStream = () => {
         const recipeInputs = {... recipeData};
-
+      
         const queryParams = new URLSearchParams(recipeInputs).toString();
+        const url = 'http://localhost:3001/recipeStream?${queryParams}';
+        eventSourceRef.current = new EventSource(url);
+        eventSourceRef.current.onmessage = (event) => {
+          const data = JSON.parse(event.data);
+
+          if(data.action === "close") {
+            closeEventStream();
+          } else if (data.action === 'chunk') {
+            setRecipeText((prev) => prev + data.chunk);
+          }
+      }
+
+      eventSourceRef.current.onerror = () => {
+        eventSOurceRef.current.close();
+      };
+    }
+
+    const closeEventStream = () => {
+      eventSourceRef.current.close();
+      eventSourceRef.current = null;
     }
 
   async function onSubmit(data) {
