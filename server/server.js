@@ -33,7 +33,7 @@ app.get("/recipeStream", async (req, res) => {
         const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
         const stream = await ai.models.generateContentStream({
-            model: "gemini-2.0-flash",
+            model: "gemini-2.5-flash",
             contents: prompt,
         });
 
