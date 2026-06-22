@@ -4,7 +4,7 @@ import { GoogleGenAI } from '@google/genai';
 import GEMINI_API_KEY from "./geminiKey.js";
 
 const app = express ();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 300;
 
 app.use (cors ());
 
