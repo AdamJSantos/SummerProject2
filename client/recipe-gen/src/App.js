@@ -141,15 +141,15 @@ function App() {
         const recipeInputs = {... recipeData};
       
         const queryParams = new URLSearchParams(recipeInputs).toString();
-        const url = 'http://localhost:3001/recipeStream?${queryParams}';
+        const url = `http://localhost:3001/recipeStream?${queryParams}`;
         eventSourceRef.current = new EventSource(url);
         eventSourceRef.current.onmessage = (event) => {
           const data = JSON.parse(event.data);
 
           if(data.action === "close") {
             closeEventStream();
-          } else if (data.action === 'chunk') {
-            setRecipeText((prev) => prev + data.chunk);
+          } else if (data.action === "stream") {
+            setRecipeText((prev) => prev + data.content);
           }
       }
 
